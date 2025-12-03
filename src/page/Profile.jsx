@@ -163,9 +163,7 @@ export default function Profile() {
                                     </div>
 
                                     <p>{post.title}</p>
-                                    {post.image && <img src={post.image} style={{
-                                        width: "300px"
-                                    }} />}
+                                    {post.image && <img src={post.image} className="cardImg" />}
                                     {post.image ? (
                                         <>
                                             <p>{post.content}</p>

@@ -1,0 +1,58 @@
+import { useState, useEffect } from "react";
+import { useParams, useNavigate } from "react-router-dom";
+import { usePosts } from "../context/PostContext";
+
+export default function EditPost() {
+    const { id } = useParams();
+    const navigate = useNavigate();
+    const { posts, updatePost } = usePosts();
+    const post = posts.find(p => p.id === Number(id));
+
+
+    const [title, setTitle] = useState(post.title);
+    const [content, setContent] = useState(post.content);
+    const [image, setImage] = useState(post.image || "");
+
+    const handleImageChange = (e) => {
+        const file = e.target.files[0];
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = () => setImage(reader.result);
+            reader.readAsDataURL(file);
+        }
+    };
+
+    const handleSave = () => {
+        updatePost(post.id, title, content, image);
+        navigate("/profile");
+    };
+
+    const handleBack = () => {
+        navigate("/profile");
+    };
+
+    return (
+        <div className="editForm">
+            <p>Title</p>
+            <input
+                placeholder="Title"
+                type="text"
+                value={title}
+                onChange={e => setTitle(e.target.value)}
+            ></input>
+            <p>Image</p>
+            {image && <img src={image} alt="Post" style={{ width: "200px" }} />}
+            <input type="file" onChange={handleImageChange} />
+
+            <p>Content</p>
+            <textarea
+                placeholder="Content"
+                value={content}
+                onChange={e => setContent(e.target.value)}
+            ></textarea>
+
+            <button onClick={handleSave}>Save</button>
+            <button onClick={handleBack}>Back</button>
+        </div>
+    )
+}

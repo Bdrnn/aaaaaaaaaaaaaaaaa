@@ -32,27 +32,41 @@ export default function EditPost() {
     };
 
     return (
-        <div className="editForm">
-            <p>Title</p>
-            <input
-                placeholder="Title"
-                type="text"
-                value={title}
-                onChange={e => setTitle(e.target.value)}
-            ></input>
-            <p>Image</p>
-            {image && <img src={image} alt="Post" style={{ width: "200px" }} />}
-            <input type="file" onChange={handleImageChange} />
+        <div className="addPostContainer">
+            <form>
+                <h1>Edit post</h1>
+                <div>
+                    <p>Title</p>
+                    <input
+                        placeholder="Title"
+                        type="text"
+                        value={title}
+                        onChange={e => setTitle(e.target.value)}
+                    ></input>
+                </div>
 
-            <p>Content</p>
-            <textarea
-                placeholder="Content"
-                value={content}
-                onChange={e => setContent(e.target.value)}
-            ></textarea>
+                <div>
 
-            <button onClick={handleSave}>Save</button>
-            <button onClick={handleBack}>Back</button>
+                    <p>Content</p>
+                    <textarea
+                        placeholder="Content"
+                        value={content}
+                        onChange={e => setContent(e.target.value)}
+                    ></textarea>
+                </div>
+                <div>
+                    <p>Image</p>
+                    {image && <img className="addPostImage" src={image} alt="Post" />}
+                    <input type="file" onChange={handleImageChange} />
+                </div>
+
+
+                <div className="editbtn">
+                    <button onClick={handleSave}>Save</button>
+                    <button onClick={handleBack}>Back</button>
+                </div>
+
+            </form>
         </div>
     )
 }

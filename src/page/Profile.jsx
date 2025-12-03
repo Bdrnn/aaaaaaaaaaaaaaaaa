@@ -96,24 +96,27 @@ export default function Profile() {
             <div>
                 <h1>My Profile</h1>
                 <div className="myProfile">
-                    <div className="changeName">
-                        <input
-                            placeholder="Change name..."
-                            value={displayName}
-                            onChange={e => setDisplayName(e.target.value)}
+
+                    <form>
+                        <div className="changeName">
+                            <input
+                                placeholder="Change name..."
+                                value={displayName}
+                                onChange={e => setDisplayName(e.target.value)}
+                            />
+                            <button onClick={handleChangeName}>Change name</button>
+                        </div>
+
+                        {profileImage && (
+                            <img src={profileImage} alt="Profile" />
+                        )}
+
+                        <input className="changeImage"
+                            type="file"
+                            alt="Preview"
+                            onChange={handleChangeImage}
                         />
-                        <button onClick={handleChangeName}>Change name</button>
-                    </div>
-
-                    {profileImage && (
-                        <img src={profileImage} alt="Profile" />
-                    )}
-
-                    <input className="changeImage"
-                        type="file"
-                        alt="Preview"
-                        onChange={handleChangeImage}
-                    />
+                    </form>
                 </div>
             </div>
             <div>

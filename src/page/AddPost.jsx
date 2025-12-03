@@ -62,10 +62,7 @@ export default function AddPost() {
                 <div>
                     <p>Image</p>
                     {image && (
-                        <img src={image} alt="Preview" style={{
-                            width: "200px"
-
-                        }} />
+                        <img src={image} className="addPostImage" alt="Preview" />
                     )}
                     <input
                         type="file"

@@ -11,24 +11,9 @@ export default function Profile() {
 
     const navigate = useNavigate();
 
-    const [filteredPost, setFilteredPost] = useState([]);
-    const [search, setSearch] = useState('');
 
-    useEffect(() => {
-        let list = posts.map(post => {
-            const user = users.find(u => u.username === post.user);
-            return { ...post, user };
-        });
 
-        if (search) {
-            list = list.filter(post =>
-                post.title.toLowerCase().includes(search.toLowerCase()) ||
-                post.content.toLowerCase().includes(search.toLowerCase())
-            );
-        }
 
-        setFilteredPost(list);
-    }, [search, posts, users])
 
     function timeAgo(date) {
         const now = new Date();
@@ -89,9 +74,16 @@ export default function Profile() {
         }
     }
 
-    const myPosts = posts.filter(post =>
-        post.user === currentUser.username
-    );
+    const myPosts = posts
+        .filter(post => post.user === currentUser.username)
+        .map(post => {
+            const owner = users.find(u => u.username === post.user);
+            return {
+                ...post,
+                userData: owner
+            };
+        });
+    console.log(myPosts);
 
     return (
         <div className="profile">
@@ -131,12 +123,12 @@ export default function Profile() {
 
                             <h1>My posts</h1>
 
-                            {filteredPost.map(post => (
+                            {myPosts.map(post => (
                                 <div key={post.id} className="card">
                                     <div className="cardHeader">
-                                        <img className="profileImage" src={post.user?.profileImage} />
+                                        <img className="profileImage" src={post.userData.profileImage} />
                                         <div>
-                                            <p>{post.user?.displayName}</p>
+                                            <p>{post.userData.displayName}</p>
                                             <small style={{
                                                 fontSize: "10px"
                                             }}>{timeAgo(post.createdAt)}</small>
@@ -160,6 +152,12 @@ export default function Profile() {
                                     )}
 
                                     <p className="date">{new Date(post.createdAt).toLocaleString()}</p>
+                                    <>
+                                        <div className="editDelete">
+                                            <button onClick={() => handleEdit(post.id)}>Edit</button>
+                                            <button onClick={() => handleDelete(post.id)}>Delete</button>
+                                        </div>
+                                    </>
                                 </div>
 
                             ))}

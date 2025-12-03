@@ -17,6 +17,7 @@
 }
 
 .card {
+  width: 320px;
   display: grid;
   gap: 20px;
   padding: 10px 10px;
@@ -183,15 +184,22 @@ nav a:hover {
 }
 
 .changeName button {
-  height: 20px;
-  width: 100px;
+
+
   background-color: #1C1C1D;
   border: none;
   border-radius: 8px;
-  margin: 0 auto;
+
   color: white;
-  margin-left: 20px;
+
   transition: 0.3s;
+  padding: 5px;
+}
+
+.changeName {
+  display: flex;
+  align-items: center;
+  gap: 5px;
 }
 
 .changeName button:hover {
@@ -218,6 +226,7 @@ nav a:hover {
   padding: 5px 5px;
   color: white;
   cursor: pointer;
+  border-radius: 4px;
 }
 
 .myProfile {
@@ -268,16 +277,18 @@ nav a:hover {
 .addPostContainer {
   background-color: #3a3b3c;
   width: 300px;
-
+  border-radius: 6px;
 
   margin: 0 auto;
 }
 
 .addPostContainer form {
   display: grid;
+  margin-top: 100px;
   padding: 50px;
   justify-content: center;
   gap: 10px;
+
 }
 
 .addPostContainer input,
@@ -317,4 +328,66 @@ textarea {
 .addPostContainer button:hover {
   transform: scale(1.1);
   cursor: pointer;
+}
+
+.editDelete {
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  gap: 20px;
+}
+
+.editDelete button {
+  width: 100px;
+  transition: 0.3s;
+}
+
+.editDelete button:hover {
+  transform: scale(1.1);
+}
+
+.editForm {
+  display: grid;
+  width: 300px;
+  margin: 0 auto;
+  margin-top: 150px;
+  background-color: #3a3b3c;
+  padding: 20px;
+  gap: 5px;
+}
+
+.editForm input,
+textarea,
+button {
+  background-color: #1C1C1D;
+  color: white;
+  border: none;
+  padding: 5px;
+  resize: none;
+  border-radius: 8px;
+  outline: none;
+}
+
+.editForm img {
+  margin: 0 auto;
+}
+
+.editForm button {
+  transition: 0.3s;
+}
+
+.editForm button:hover {
+  transform: scale(1.1);
+}
+
+.editForm input::file-selector-button {
+  background-color: #3a3b3c;
+  border: none;
+  border-radius: 8px;
+  transition: 1s;
+  color: white;
+}
+
+.editForm input::file-selector-button:hover {
+  transform: scale(1.1);
 }

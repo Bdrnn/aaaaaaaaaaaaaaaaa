@@ -30,20 +30,26 @@ export default function Login() {
     return (
         <form className="loginForm" onSubmit={handleLogin}>
             <h1>Login</h1>
-            <label>Username</label>
-            <input
-                type="text"
-                placeholder="Username"
-                value={username}
-                onChange={e => setUserName(e.target.value)}
-            ></input>
-            <label>Password</label>
-            <input
-                type="password"
-                placeholder="Password"
-                value={password}
-                onChange={e => setPassword(e.target.value)}
-            ></input>
+            <div className="labelinput">
+                <label>Username</label>
+                <input
+                    type="text"
+                    placeholder="Username"
+                    value={username}
+                    onChange={e => setUserName(e.target.value)}
+                ></input>
+            </div>
+            <div className="labelinput">
+
+                <label>Password</label>
+                <input
+                    type="password"
+                    placeholder="Password"
+                    value={password}
+                    onChange={e => setPassword(e.target.value)}
+                ></input>
+            </div>
+
             <button>Login</button>
         </form>
     )

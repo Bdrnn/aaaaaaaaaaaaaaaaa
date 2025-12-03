@@ -13,30 +13,35 @@ export default function Navbar() {
     }
     return (
         <nav>
-            <div>
+            <div className="navFirst">
                 <h1>Blog</h1>
                 <Link to='/'>Home</Link>
             </div>
             {currentUser ? (
                 <>
-                    <Link to='/profile'>
-                        <p className='navProfile'>
-                            {currentUser.profileImage && (
-                                <img src={currentUser.profileImage} style={{
-                                    width: "30px",
-                                    borderRadius: "50%",
-                                    height: "30px"
-                                }} />
-                            )}
-                            {currentUser.displayName}</p>
-                    </Link>
-                    <Link to="/" onClick={handleLogout}>Logout</Link>
+                    <div className="navSecond">
+                        <Link to='/profile'>
+                            <p className='navProfile'>
+                                {currentUser.profileImage && (
+                                    <img src={currentUser.profileImage} style={{
+                                        width: "30px",
+                                        borderRadius: "50%",
+                                        height: "30px"
+                                    }} />
+                                )}
+                                {currentUser.displayName}</p>
+                        </Link>
+                        <Link to="/" onClick={handleLogout}>Logout</Link>
+                    </div>
                 </>
 
             ) : (
                 <>
-                    <Link to='/login'>Login</Link>
-                    <Link to='/register'>Register</Link>
+                    <div className="loginregister">
+                        <Link to='/login'>Login</Link>
+                        <Link to='/register'>Register</Link>
+                    </div>
+
                 </>
             )}
 

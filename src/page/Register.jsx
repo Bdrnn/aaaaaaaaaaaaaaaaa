@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import defaultImage from "../img/profile.jpg"
 
 export default function Register() {
-    const { users, setUsers, setCurrentUser } = useAuth();
+    const { users, setUsers, currentUser, setCurrentUser } = useAuth();
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
@@ -50,33 +50,43 @@ export default function Register() {
             onSubmit={handleSubmit}
         >
             <h1>Register</h1>
-            <label>Display Name</label>
-            <input
-                type="text"
-                placeholder="Display name"
-                value={displayName}
-                onChange={e => setDisplayName(e.target.value)}
-            ></input>
-            <label>Username</label>
-            <input
-                type="text"
-                placeholder="Username"
-                value={username}
-                onChange={e => setUsername(e.target.value)}
-            ></input>
-            <label>Password</label>
-            <input
-                type="password"
-                placeholder="Password"
-                value={password}
-                onChange={e => setPassword(e.target.value)}
-            ></input>
-            <input
-                type="password"
-                placeholder="Password"
-                value={confirmPassword}
-                onChange={e => setConfirmPassword(e.target.value)}
-            ></input>
+            <div className="labelinput">
+                <label>Display Name</label>
+                <input
+                    type="text"
+                    placeholder="Display name"
+                    value={displayName}
+                    onChange={e => setDisplayName(e.target.value)}
+                ></input>
+            </div>
+            <div className="labelinput">
+                <label>Username</label>
+                <input
+                    type="text"
+                    placeholder="Username"
+                    value={username}
+                    onChange={e => setUsername(e.target.value)}
+                ></input>
+            </div>
+            <div className="labelinput">
+                <label>Password</label>
+                <input
+                    type="password"
+                    placeholder="Password"
+                    value={password}
+                    onChange={e => setPassword(e.target.value)}
+                ></input>
+            </div>
+            <div className="labelinput">
+                <label>Confirm password</label>
+                <input
+                    type="password"
+                    placeholder="Confirm password"
+                    value={confirmPassword}
+                    onChange={e => setConfirmPassword(e.target.value)}
+                ></input>
+            </div>
+
             <button>Register</button>
         </form>
     )

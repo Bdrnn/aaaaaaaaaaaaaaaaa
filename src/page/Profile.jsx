@@ -1,6 +1,6 @@
 import { useAuth } from "../context/UserContext";
 import { usePosts } from "../context/PostContext";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
 export default function Profile() {
@@ -8,8 +8,40 @@ export default function Profile() {
     const { posts, deletePost } = usePosts();
     const [displayName, setDisplayName] = useState(currentUser.displayName);
     const [profileImage, setProfileImage] = useState(currentUser.profileImage || null);
-    console.log(localStorage);
+
     const navigate = useNavigate();
+
+    const [filteredPost, setFilteredPost] = useState([]);
+    const [search, setSearch] = useState('');
+
+    useEffect(() => {
+        let list = posts.map(post => {
+            const user = users.find(u => u.username === post.user);
+            return { ...post, user };
+        });
+
+        if (search) {
+            list = list.filter(post =>
+                post.title.toLowerCase().includes(search.toLowerCase()) ||
+                post.content.toLowerCase().includes(search.toLowerCase())
+            );
+        }
+
+        setFilteredPost(list);
+    }, [search, posts, users])
+
+    function timeAgo(date) {
+        const now = new Date();
+        const postDate = new Date(date);
+        const diffMin = Math.floor((now - postDate) / 1000 / 60);
+        if (diffMin < 1) return "Just now";
+        if (diffMin < 60) return `${diffMin} minute${diffMin > 1 ? 's' : ''} ago`;
+        const diffHour = Math.floor(diffMin / 60);
+        if (diffHour < 24) return `${diffHour} hour${diffHour > 1 ? 's' : ''} ago`;
+        const diffDay = Math.floor(diffHour / 24);
+        return `${diffDay} day${diffDay > 1 ? 's' : ''} ago`;
+    }
+
 
     const handleEdit = (id) => {
         navigate(`/editpost/${id}`);
@@ -62,44 +94,72 @@ export default function Profile() {
     );
 
     return (
-        <div>
-            <h1>Profile</h1>
+        <div className="profile">
+
             <div>
                 <h1>My Profile</h1>
-                <input
-                    value={displayName}
-                    onChange={e => setDisplayName(e.target.value)}
-                />
-                <button onClick={handleChangeName}>Change name</button>
-                {profileImage && (
-                    <img src={profileImage} alt="Profile" />
-                )}
+                <div className="myProfile">
+                    <div className="changeName">
+                        <input
+                            placeholder="Change name..."
+                            value={displayName}
+                            onChange={e => setDisplayName(e.target.value)}
+                        />
+                        <button onClick={handleChangeName}>Change name</button>
+                    </div>
 
-                <input
-                    type="file"
-                    alt="Preview"
-                    onChange={handleChangeImage}
-                />
+                    {profileImage && (
+                        <img src={profileImage} alt="Profile" />
+                    )}
+
+                    <input className="changeImage"
+                        type="file"
+                        alt="Preview"
+                        onChange={handleChangeImage}
+                    />
+                </div>
             </div>
             <div>
-                <h1>My posts</h1>
+
                 {myPosts.length === 0 ? (
                     <p>No post</p>
                 ) : (
                     <>
 
 
-                        <div>
-                            {myPosts.map(post => (
-                                <div key={post.id}>
-                                    <p>{post.title}</p>
-                                    <p>{post.content}</p>
-                                    {post.image && <img src={post.image} style={{
-                                        width: "200px"
-                                    }} />}
+                        <div className="cardContainer">
 
-                                    <button onClick={() => handleEdit(post.id)}>Edit</button>
-                                    <button onClick={() => handleDelete(post.id)}>Delete</button>
+                            <h1>My posts</h1>
+
+                            {filteredPost.map(post => (
+                                <div key={post.id} className="card">
+                                    <div className="cardHeader">
+                                        <img className="profileImage" src={post.user?.profileImage} />
+                                        <div>
+                                            <p>{post.user?.displayName}</p>
+                                            <small style={{
+                                                fontSize: "10px"
+                                            }}>{timeAgo(post.createdAt)}</small>
+                                        </div>
+                                    </div>
+
+                                    <p>{post.title}</p>
+                                    {post.image && <img src={post.image} style={{
+                                        width: "300px"
+                                    }} />}
+                                    {post.image ? (
+                                        <>
+                                            <p>{post.content}</p>
+                                        </>
+                                    ) : (
+                                        <>
+                                            <p className="content">
+                                                {post.content}
+                                            </p>
+                                        </>
+                                    )}
+
+                                    <p className="date">{new Date(post.createdAt).toLocaleString()}</p>
                                 </div>
 
                             ))}

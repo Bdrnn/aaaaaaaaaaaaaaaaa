@@ -38,32 +38,41 @@ export default function AddPost() {
     }
 
     return (
-        <div>
-            <h1>Add post</h1>
-            <form onSubmit={handleSubmit}>
-                <p>Title</p>
-                <input
-                    placeholder="Title"
-                    value={title}
-                    onChange={e => setTitle(e.target.value)}
-                />
-                <p>Content</p>
-                <input
-                    placeholder="Content"
-                    value={content}
-                    onChange={e => setContent(e.target.value)}
-                />
-                <p>Image</p>
-                {image && (
-                    <img src={image} alt="Preview" style={{
-                        width: "200px"
+        <div className="addPostContainer">
 
-                    }} />
-                )}
-                <input
-                    type="file"
-                    onChange={handleImage}
-                />
+            <form onSubmit={handleSubmit}>
+                <h1>Add post</h1>
+                <div>
+                    <p>Title</p>
+                    <input
+                        placeholder="Title"
+                        value={title}
+                        onChange={e => setTitle(e.target.value)}
+                    />
+                </div>
+                <div>
+                    <p>Content</p>
+                    <textarea
+                        placeholder="Content"
+                        value={content}
+                        onChange={e => setContent(e.target.value)}
+                    />
+                </div>
+
+                <div>
+                    <p>Image</p>
+                    {image && (
+                        <img src={image} alt="Preview" style={{
+                            width: "200px"
+
+                        }} />
+                    )}
+                    <input
+                        type="file"
+                        onChange={handleImage}
+                    />
+                </div>
+
                 <button type="submit">Post</button>
             </form>
         </div>

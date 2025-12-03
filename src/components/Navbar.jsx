@@ -2,6 +2,7 @@ import { Link } from "react-router-dom"
 import { useAuth } from "../context/UserContext"
 import { useNavigate } from "react-router-dom";
 import { FaHome } from "react-icons/fa";
+import logo from '../img/blogLogo.svg'
 
 export default function Navbar() {
     const { users, currentUser, setCurrentUser } = useAuth();
@@ -15,7 +16,17 @@ export default function Navbar() {
     return (
         <nav>
             <div className="navFirst">
-                <h1>Blog</h1>
+                <div style={{
+                    display: "flex"
+                }}>
+                    <h1 style={{
+                        color: "#0866FF"
+                    }}>B</h1>
+                    <h1>L</h1>
+                    <h1>O</h1>
+                    <h1>G</h1>
+                </div>
+
                 <Link to='/'><FaHome size={30} /></Link>
             </div>
             {currentUser ? (

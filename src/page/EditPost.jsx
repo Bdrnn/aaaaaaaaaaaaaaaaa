@@ -24,11 +24,11 @@ export default function EditPost() {
 
     const handleSave = () => {
         updatePost(post.id, title, content, image);
-        navigate("/profile");
+        navigate("/");
     };
 
     const handleBack = () => {
-        navigate("/profile");
+        navigate("/");
     };
 
     return (

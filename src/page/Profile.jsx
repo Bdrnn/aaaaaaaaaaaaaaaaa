@@ -2,6 +2,11 @@ import { useAuth } from "../context/UserContext";
 import { usePosts } from "../context/PostContext";
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { Menu, MenuButton, MenuItem, MenuItems } from
+    '@headlessui/react'
+import { MdOutlinePostAdd, MdEdit } from "react-icons/md";
+import { SlOptions } from "react-icons/sl";
+import { MdOutlineDelete } from "react-icons/md";
 
 export default function Profile() {
     const { currentUser, setCurrentUser, users, setUsers } = useAuth();
@@ -83,7 +88,7 @@ export default function Profile() {
                 userData: owner
             };
         });
-    console.log(myPosts);
+
 
     return (
         <div className="profile">
@@ -125,13 +130,35 @@ export default function Profile() {
 
                             {myPosts.map(post => (
                                 <div key={post.id} className="card">
-                                    <div className="cardHeader">
-                                        <img className="profileImage" src={post.userData.profileImage} />
-                                        <div>
-                                            <p>{post.userData.displayName}</p>
-                                            <small style={{
-                                                fontSize: "10px"
-                                            }}>{timeAgo(post.createdAt)}</small>
+                                    <div className="cardTop">
+                                        <div className="cardHeader">
+                                            <img className="profileImage" src={post.userData.profileImage} />
+                                            <div>
+                                                <p>{post.userData.displayName}</p>
+                                                <small style={{
+                                                    fontSize: "10px"
+                                                }}>{timeAgo(post.createdAt)}</small>
+                                            </div>
+                                        </div>
+                                        <div className="option">
+                                            <Menu >
+                                                <MenuButton ><SlOptions size={25} /></MenuButton>
+                                                <MenuItems className="menuItems" anchor="bottom">
+                                                    <MenuItem >
+                                                        <a onClick={() => handleEdit(post.id)} className="edit" >
+                                                            <MdEdit size={20} Edit />
+                                                            Edit
+                                                        </a>
+                                                    </MenuItem>
+                                                    <MenuItem>
+                                                        <a onClick={() => handleDelete(post.id)} className="delete">
+                                                            <MdOutlineDelete size={20} />
+                                                            Delete
+                                                        </a>
+                                                    </MenuItem>
+
+                                                </MenuItems>
+                                            </Menu>
                                         </div>
                                     </div>
 
@@ -152,12 +179,7 @@ export default function Profile() {
                                     )}
 
                                     <p className="date">{new Date(post.createdAt).toLocaleString()}</p>
-                                    <>
-                                        <div className="editDelete">
-                                            <button onClick={() => handleEdit(post.id)}>Edit</button>
-                                            <button onClick={() => handleDelete(post.id)}>Delete</button>
-                                        </div>
-                                    </>
+
                                 </div>
 
                             ))}
